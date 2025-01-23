@@ -1,0 +1,12 @@
+[Unit]
+Description="{{ nxcli_name }}-nxenv-schedule"
+PartOf={{ nxcli_name }}-workers.target
+
+[Service]
+User={{ user }}
+Group={{ user }}
+Restart=always
+ExecStart={{ nxcli_cmd }} schedule
+StandardOutput=file:{{ nxcli_dir }}/logs/schedule.log
+StandardError=file:{{ nxcli_dir }}/logs/schedule.error.log
+WorkingDirectory={{ nxcli_dir }}

@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: Create user
+      user:
+        name: "{{ nxenv_user }}"
+        generate_ssh_key: yes
+
+    - name: Set home folder perms
+      file:
+        path: "{{ user_directory }}"
+        mode: "o+rx"
+        owner: "{{ nxenv_user }}"
+        group: "{{ nxenv_user }}"
+        recurse: yes
+
+    - name: Set /tmp/.nxcli folder perms
+      file:
+        path: "{{ repo_path }}"
+        owner: "{{ nxenv_user }}"
+        group: "{{ nxenv_user }}"
+        recurse: yes
+
+    - name: Change default shell to bash
+      shell: "chsh {{ nxenv_user }} -s $(which bash)"

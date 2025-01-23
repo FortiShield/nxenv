@@ -1,0 +1,69 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Nxcli Web",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/nxenv-nxcli/apps/nxenv/nxenv/utils/nxcli_helper.py",
+      "args": [
+        "nxenv",
+        "serve",
+        "--port",
+        "8000",
+        "--noreload",
+        "--nothreading"
+      ],
+      "pythonPath": "${workspaceFolder}/nxenv-nxcli/env/bin/python",
+      "cwd": "${workspaceFolder}/nxenv-nxcli/sites",
+      "env": {
+        "DEV_SERVER": "1"
+      }
+    },
+    {
+      "name": "Nxcli Short Worker",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/nxenv-nxcli/apps/nxenv/nxenv/utils/nxcli_helper.py",
+      "args": ["nxenv", "worker", "--queue", "short"],
+      "pythonPath": "${workspaceFolder}/nxenv-nxcli/env/bin/python",
+      "cwd": "${workspaceFolder}/nxenv-nxcli/sites",
+      "env": {
+        "DEV_SERVER": "1"
+      }
+    },
+    {
+      "name": "Nxcli Long Worker",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/nxenv-nxcli/apps/nxenv/nxenv/utils/nxcli_helper.py",
+      "args": ["nxenv", "worker", "--queue", "long"],
+      "pythonPath": "${workspaceFolder}/nxenv-nxcli/env/bin/python",
+      "cwd": "${workspaceFolder}/nxenv-nxcli/sites",
+      "env": {
+        "DEV_SERVER": "1"
+      }
+    },
+    {
+      "name": "Honcho SocketIO Watch Schedule Worker",
+      "type": "python",
+      "request": "launch",
+      "program": "/home/nxenv/.local/bin/honcho",
+      "pythonPath": "${workspaceFolder}/nxenv-nxcli/env/bin/python",
+      "cwd": "${workspaceFolder}/nxenv-nxcli",
+      "console": "internalConsole",
+      "args": [
+        "start",
+        "socketio",
+        "watch",
+        "schedule",
+        "worker_short",
+        "worker_long",
+        "worker_default"
+      ]
+    }
+  ]
+}

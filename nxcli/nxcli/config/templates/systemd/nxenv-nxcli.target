@@ -1,0 +1,6 @@
+[Unit]
+After=network.target
+Requires={{ nxcli_name }}-web.target {{ nxcli_name }}-workers.target {{ nxcli_name }}-redis.target
+
+[Install]
+WantedBy=multi-user.target

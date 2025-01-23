@@ -1,0 +1,3 @@
+{% extends "templates/print_format/macros/Data.html" %} {%- block value -%}
+<div class="value">{{ nxenv.utils.md_to_html(doc.get(df.fieldname)) }}</div>
+{%- endblock -%}

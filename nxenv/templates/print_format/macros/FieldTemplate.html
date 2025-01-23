@@ -1,0 +1,6 @@
+<div class="field-template" {{ field_attributes(df) }}>
+	{% set template = nxenv.db.get_value('Print Format Field Template', df.field_template,
+	['template', 'template_file', 'standard'], as_dict=1) %} {{
+	nxenv.render_template(template.template_file if template.standard else template.template,
+	{'doc': doc}) }}
+</div>

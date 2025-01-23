@@ -1,0 +1,13 @@
+[Unit]
+After={{ nxcli_name }}-nxenv-web.service
+Description="{{ nxcli_name }}-node-socketio"
+PartOf={{ nxcli_name }}-web.target
+
+[Service]
+User={{ user }}
+Group={{ user }}
+Restart=always
+ExecStart={{ node }} {{ nxcli_dir }}/apps/nxenv/socketio.js
+StandardOutput=file:{{ nxcli_dir }}/logs/node-socketio.log
+StandardError=file:{{ nxcli_dir }}/logs/node-socketio.error.log
+WorkingDirectory={{ nxcli_dir }}

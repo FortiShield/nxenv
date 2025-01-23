@@ -1,0 +1,8 @@
+nxenv/public/js/lib/*
+nxenv/public/js/nxenv/misc/tests/*
+nxenv/public/js/nxenv/views/test_runner.js
+nxenv/core/doctype/doctype/boilerplate/*
+nxenv/core/doctype/report/boilerplate/*
+nxenv/public/js/nxenv/class.js
+nxenv/templates/includes/*
+nxenv/www/website_script.js

@@ -1,0 +1,58 @@
+ARG NXENV_BRANCH=version-15
+
+FROM nxenv/build:${NXENV_BRANCH} AS builder
+
+ARG NXENV_BRANCH=version-15
+ARG NXENV_PATH=https://github.com/nxenv/nxenv
+ARG APPS_JSON_BASE64
+
+USER root
+
+RUN if [ -n "${APPS_JSON_BASE64}" ]; then \
+    mkdir /opt/nxenv && echo "${APPS_JSON_BASE64}" | base64 -d > /opt/nxenv/apps.json; \
+  fi
+
+USER nxenv
+
+RUN export APP_INSTALL_ARGS="" && \
+  if [ -n "${APPS_JSON_BASE64}" ]; then \
+    export APP_INSTALL_ARGS="--apps_path=/opt/nxenv/apps.json"; \
+  fi && \
+  nxcli init ${APP_INSTALL_ARGS}\
+    --nxenv-branch=${NXENV_BRANCH} \
+    --nxenv-path=${NXENV_PATH} \
+    --no-procfile \
+    --no-backups \
+    --skip-redis-config-generation \
+    --verbose \
+    /home/nxenv/nxenv-nxcli && \
+  cd /home/nxenv/nxenv-nxcli && \
+  echo "{}" > sites/common_site_config.json && \
+  find apps -mindepth 1 -path "*/.git" | xargs rm -fr
+
+FROM nxenv/base:${NXENV_BRANCH} AS backend
+
+USER nxenv
+
+COPY --from=builder --chown=nxenv:nxenv /home/nxenv/nxenv-nxcli /home/nxenv/nxenv-nxcli
+
+WORKDIR /home/nxenv/nxenv-nxcli
+
+VOLUME [ \
+  "/home/nxenv/nxenv-nxcli/sites", \
+  "/home/nxenv/nxenv-nxcli/sites/assets", \
+  "/home/nxenv/nxenv-nxcli/logs" \
+]
+
+CMD [ \
+  "/home/nxenv/nxenv-nxcli/env/bin/gunicorn", \
+  "--chdir=/home/nxenv/nxenv-nxcli/sites", \
+  "--bind=0.0.0.0:8000", \
+  "--threads=4", \
+  "--workers=2", \
+  "--worker-class=gthread", \
+  "--worker-tmp-dir=/dev/shm", \
+  "--timeout=120", \
+  "--preload", \
+  "nxenv.app:application" \
+]

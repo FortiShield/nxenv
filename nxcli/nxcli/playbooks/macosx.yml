@@ -1,0 +1,39 @@
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+
+  vars:
+    nxcli_repo_path: "/Users/{{ ansible_user_id }}/.nxcli"
+    nxcli_path: "/Users/{{ ansible_user_id }}/nxenv-nxcli"
+
+  tasks:
+    - name: install prequisites
+      homebrew:
+        name:
+          - cmake
+          - redis
+          - mariadb
+          - nodejs
+        state: present
+
+    - name: install wkhtmltopdf
+      homebrew_cask:
+        name:
+          - wkhtmltopdf
+        state: present
+
+    - name: configure mariadb
+      include_tasks: roles/mariadb/tasks/main.yml
+      vars:
+        mysql_conf_tpl: roles/mariadb/files/mariadb_config.cnf
+
+    - name: Install MySQLdb in global env
+      pip: name=mysql-python version=1.2.5
+
+    # setup nxenv-nxcli
+    - include_tasks: includes/setup_nxcli.yml
+
+    # setup development environment
+    - include_tasks: includes/setup_dev_env.yml
+      when: not production

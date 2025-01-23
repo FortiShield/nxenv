@@ -1,0 +1,6 @@
+[Unit]
+After=network.target
+Wants={{ nxcli_name }}-nxenv-web.service {{ nxcli_name }}-node-socketio.service
+
+[Install]
+WantedBy=multi-user.target

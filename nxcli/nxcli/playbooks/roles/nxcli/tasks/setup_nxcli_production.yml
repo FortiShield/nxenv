@@ -1,0 +1,27 @@
+---
+- name: Setup production
+  become: yes
+  become_user: root
+  command: nxcli setup production {{ nxenv_user }} --yes
+  args:
+    chdir: "{{ nxcli_path }}"
+
+- name: Setup Sudoers
+  become: yes
+  become_user: root
+  command: nxcli setup sudoers {{ nxenv_user }}
+  args:
+    chdir: "{{ nxcli_path }}"
+
+- name: Set correct permissions on nxcli.log
+  file:
+    path: "{{ nxcli_path }}/logs/nxcli.log"
+    owner: "{{ nxenv_user }}"
+    group: "{{ nxenv_user }}"
+  become: yes
+  become_user: root
+
+- name: Restart the nxcli
+  command: nxcli restart
+  args:
+    chdir: "{{ nxcli_path }}"

@@ -1,0 +1,60 @@
+{
+    "name": "nxenv-gantt",
+    "version": "1.0.0",
+    "description": "A simple, modern, interactive gantt library for the web",
+    "main": "src/index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build-dev": "vite build --watch",
+        "build": "vite build",
+        "lint": "eslint src/**/*.js",
+        "prettier": "prettier --write \"{src/*,tests/*,rollup.config}.js\"",
+        "prettier-check": "prettier --check \"{src/*,tests/*,rollup.config}.js\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nxenv/nxenv.git",
+        "directory": "components/gantt"
+    },
+    "files": [
+        "src",
+        "dist",
+        "README.md"
+    ],
+    "exports": {
+        ".": {
+            "require": "./dist/nxenv-gantt.umd.js",
+            "import": "./dist/nxenv-gantt.es.js",
+            "style": "./dist/nxenv-gantt.css"
+        }
+    },
+    "keywords": [
+        "gantt",
+        "svg",
+        "simple gantt",
+        "project timeline",
+        "interactive gantt",
+        "project management"
+    ],
+    "author": "Md Sulaiman",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/nxenv/nxenv/issues"
+    },
+    "homepage": "https://github.com/nxenv/nxenv",
+    "devDependencies": {
+        "eslint": "^9.15.0",
+        "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-prettier": "^2.6.0",
+        "postcss-nesting": "^12.1.2",
+        "prettier": "3.2.5",
+        "vite": "^5.2.10"
+    },
+    "eslintIgnore": [
+        "dist"
+    ],
+    "sideEffects": [
+        "*.css"
+    ]
+}

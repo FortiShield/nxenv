@@ -1,0 +1,12 @@
+[Unit]
+Description="{{ nxcli_name }}-nxenv-short-worker %I"
+PartOf={{ nxcli_name }}-workers.target
+
+[Service]
+User={{ user }}
+Group={{ user }}
+Restart=always
+ExecStart={{ nxcli_cmd }} worker --queue short
+StandardOutput=file:{{ nxcli_dir }}/logs/worker.log
+StandardError=file:{{ nxcli_dir }}/logs/worker.error.log
+WorkingDirectory={{ nxcli_dir }}

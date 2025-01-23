@@ -1,0 +1,3 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/nxenv-nxcli/env/bin/python"
+}

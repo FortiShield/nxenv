@@ -1,0 +1,56 @@
+[project]
+name = "nxenv-nxcli"
+description = "CLI to manage Multi-tenant deployments for Nxenv apps"
+readme = "README.md"
+license = { text = "GPL-3.0-only" }
+requires-python = ">=3.8"
+authors = [
+    { name = "KhulnaSoft, Ltd", email = "info@khulnasoft.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Natural Language :: English",
+    "Operating System :: MacOS",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: User Interfaces",
+    "Topic :: System :: Installation/Setup",
+]
+dependencies = [
+    "Click>=7.0",
+    "GitPython~=3.1.30",
+    "honcho",
+]
+dynamic = [
+    "version",
+]
+
+[project.scripts]
+nxcli = "nxcli.cli:cli"
+
+[project.urls]
+Changelog = "https://github.com/nxenv/nxcli/releases"
+Documentation = "https://nxenvframework.com/docs/user/en/nxcli"
+Homepage = "https://nxenv.io/nxcli"
+Source = "https://github.com/nxenv/nxcli"
+
+[build-system]
+requires = [
+    "hatchling>=1.6.0,<=1.21.0",
+]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "nxcli/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/nxcli"
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+  "/nxcli"
+]
